@@ -3,5 +3,24 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="colorRed">#FF0000</color>
+    <color name="colorRedbag">#FF0000</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorGray">#f0f0f0</color>
+    <color name="colorOnlineshop">#6B83B7</color>
+    <color name="colorLifestuff">#E2728E</color>
+    <color name="colorTraffic">#33AF49</color>
+    <color name="colorCommon">#AEB340</color>
+    <color name="colorClothes">#B47CA7</color>
+    <color name="colorDinner">#E37C10</color>
+    <color name="colorFun">#9C939E</color>
+    <color name="colorSnack">#81ACA9</color>
+    <color name="colorPhonecast">#475999</color>
+    <color name="colorStudy">#6FAA70</color>
+    <color name="colorDoctor">#FF4081</color>
+    <color name="colorTour">#8EC429</color>
+    <color name="colorOdinary">#E37C10</color>
+    <color name="colorPay">#DD5555</color>
+    <color name="colorBonus">#F3CC93</color>
+    <color name="colorHalfjob">#1c8953</color>
+    <color name="colorInvent">#559977</color>
 </resources>

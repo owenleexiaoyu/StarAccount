@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="@dimen/nav_header_height"
-    android:background="@mipmap/minebg"
+    android:background="@color/colorInvent"
     android:gravity="bottom"
     android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
@@ -19,8 +19,7 @@
         android:paddingTop="@dimen/nav_header_vertical_spacing"
         android:src="@mipmap/myselficon"
         app:srcCompat="@android:drawable/sym_def_app_icon"
-        app:civ_border_color="#fff"
-        app:civ_border_width="3dp"/>
+        />
 
     <TextView
         android:layout_width="match_parent"

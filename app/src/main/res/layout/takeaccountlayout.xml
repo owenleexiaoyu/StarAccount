@@ -1,43 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
     <LinearLayout
+        android:id="@+id/topbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="#1B8853">
+        android:background="@color/colorCommon"
+        android:layout_gravity="top">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <Button
+                android:id="@+id/back"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:background="@mipmap/cancel"
-                android:layout_margin="10dp"/>
-            <Switch
+                android:layout_marginLeft="10dp"
+                android:layout_centerVertical="true"
+                android:onClick="back"/>
+            <RadioGroup
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"/>
+                android:orientation="horizontal"
+                android:layout_centerInParent="true"
+                android:layout_margin="10dp">
+                <RadioButton
+                    android:id="@+id/ed_radio_in"
+                    android:text="收入"
+                    android:textColor="#ffffff"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/radio_in"
+                    android:button="@null"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="15dp"/>
+
+                <RadioButton
+                    android:text="支出"
+                    android:textColor="#ffffff"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/radio_out"
+                    android:button="@null"
+                    android:checked="true"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="20dp"
+                    android:id="@+id/ed_radio_out" />
+            </RadioGroup>
         </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:src="@mipmap/ic_launcher"
-                android:layout_marginLeft="10dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginRight="10dp"/>
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:paddingBottom="10dp">
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp">
+                <com.owenandroid.staraccount.widgets.CircleImageView
+                    android:id="@+id/ed_type_bgcolor"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:src="@color/colorCommon"
+                    android:layout_gravity="center"
+                    app:civ_border_width="1dp"
+                    app:civ_border_color="#ffffff" />
+
+                <ImageView
+                    android:id="@+id/ed_type_icon"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:src="@mipmap/common"
+                    android:layout_gravity="center" />
+            </FrameLayout>
             <TextView
+                android:id="@+id/ed_type_name"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="一般"
                 android:gravity="center"
-                android:textColor="#ffffff"/>
+                android:textColor="#ffffff"
+                android:layout_marginLeft="10dp"/>
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -55,39 +108,56 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="right"
-                    android:text="0"
+                    android:text=""
                     android:gravity="center_vertical|right"
                     android:layout_marginRight="10dp"
                     android:textColor="#ffffff"
-                    android:textSize="18sp"/>
+                    android:textSize="18sp"
+                    android:maxLines="1"
+                    android:maxLength="15"/>
             </LinearLayout>
 
         </LinearLayout>
     </LinearLayout>
+
+    <android.support.v4.view.ViewPager
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:id="@+id/viewpager">
+    </android.support.v4.view.ViewPager>
+
     <LinearLayout
-        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:background="#555"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp">
+        <Button
+            android:id="@+id/choose_date"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text="今天"
+            android:textColor="@color/colorWhite"
+            android:layout_marginLeft="10dp"
+            android:onClick="chooseDate"
+            android:background="@drawable/datebtn_bg"/>
+        <TextView
+            android:id="@+id/tv_note"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="无备注"
+            android:textColor="@color/colorWhite"
+            android:gravity="right"
+            android:layout_marginRight="10dp"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_gravity="bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#252525"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp">
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text="今天"
-                android:textColor="#ffffff"
-                android:layout_marginLeft="20dp" />
-            <Button
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:background="@mipmap/edit"
-                android:layout_marginRight="20dp"/>
-        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -95,7 +165,7 @@
             <Button
                 android:id="@+id/ed_btn7"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_weight="1"
                 android:text="7"
                 android:textSize="17sp"
@@ -104,7 +174,7 @@
 
             <Button
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_weight="1"
                 android:text="8"
                 android:textSize="17sp"
@@ -114,10 +184,61 @@
 
             <Button
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_weight="1"
                 android:text="9"
                 android:id="@+id/ed_btn9"
+                android:textSize="17sp"
+                android:textColor="#ffffff"
+                android:background="@drawable/btn_border"/>
+            <LinearLayout
+                android:id="@+id/writenote"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="50dp"
+                android:background="@drawable/btn_border"
+                android:gravity="center"
+                android:clickable="true">
+                <ImageView
+                    android:layout_width="17dp"
+                    android:src="@mipmap/edit"
+                    android:layout_height="17dp"
+                    android:layout_gravity="center"/>
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/ed_btn4"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:text="4"
+                android:textSize="17sp"
+                android:textColor="#ffffff"
+                android:background="@drawable/btn_border"/>
+
+            <Button
+                android:id="@+id/ed_btn5"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:text="5"
+                android:textSize="17sp"
+                android:textColor="#ffffff"
+                android:background="@drawable/btn_border"/>
+
+            <Button
+                android:id="@+id/ed_btn6"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:text="6"
                 android:textSize="17sp"
                 android:textColor="#ffffff"
                 android:background="@drawable/btn_border"/>
@@ -125,7 +246,7 @@
             <Button
                 android:id="@+id/ed_btnc"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_weight="1"
                 android:text="C"
                 android:textSize="17sp"
@@ -138,54 +259,9 @@
             android:layout_height="wrap_content">
 
             <Button
-                android:id="@+id/ed_btn4"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="4"
-                android:textSize="17sp"
-                android:textColor="#ffffff"
-                android:background="@drawable/btn_border"/>
-
-            <Button
-                android:id="@+id/ed_btn5"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="5"
-                android:textSize="17sp"
-                android:textColor="#ffffff"
-                android:background="@drawable/btn_border"/>
-
-            <Button
-                android:id="@+id/ed_btn6"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="6"
-                android:textSize="17sp"
-                android:textColor="#ffffff"
-                android:background="@drawable/btn_border"/>
-
-            <Button
-                android:id="@+id/ed_btnadd"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="+"
-                android:textSize="17sp"
-                android:textColor="#DB9E4C"
-                android:background="@drawable/btn_border"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <Button
                 android:id="@+id/ed_btn1"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_weight="1"
                 android:text="1"
                 android:textSize="17sp"
@@ -195,7 +271,7 @@
             <Button
                 android:id="@+id/ed_btn2"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_weight="1"
                 android:text="2"
                 android:textSize="17sp"
@@ -205,7 +281,7 @@
             <Button
                 android:id="@+id/ed_btn3"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_weight="1"
                 android:text="3"
                 android:textSize="17sp"
@@ -215,9 +291,9 @@
             <Button
                 android:id="@+id/ed_btncut"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_weight="1"
-                android:text="-"
+                android:text="←"
                 android:textSize="17sp"
                 android:textColor="#DB9E4C"
                 android:background="@drawable/btn_border"/>
@@ -230,7 +306,7 @@
             <Button
                 android:id="@+id/ed_btndot"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_weight="1"
                 android:text="."
                 android:textSize="17sp"
@@ -240,7 +316,7 @@
             <Button
                 android:id="@+id/ed_btn0"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_weight="1"
                 android:text="0"
                 android:textSize="17sp"
@@ -250,7 +326,7 @@
             <Button
                 android:id="@+id/ed_btnok"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_weight="2"
                 android:text="OK"
                 android:textSize="17sp"
@@ -260,4 +336,6 @@
 
 
     </LinearLayout>
-</RelativeLayout>
+
+
+</LinearLayout>

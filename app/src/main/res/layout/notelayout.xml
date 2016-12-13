@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#ffffff">
+
+    <TextView
+        android:text="备注"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="10dp"
+        android:textColor="@color/colorWhite"
+        android:textSize="20sp"
+        android:background="@color/colorInvent"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:id="@+id/note_ed"
+            android:ems="10"
+            android:textSize="16sp"
+            android:maxLines="6"
+            android:maxLength="40"
+            android:padding="5dp"
+            android:layout_margin="10dp"
+            android:background="@color/colorWhite"
+            android:gravity="top"
+            android:hint="写下备注吧，不要超过40个字"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#ddd"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"/>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp">
+            <Button
+                android:id="@+id/note_btn_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="取消"
+                android:layout_marginLeft="30dp"
+                android:background="@drawable/note_btn_bg" />
+
+            <Button
+                android:id="@+id/note_btn_done"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="完成"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="30dp"
+                android:background="@drawable/note_btn_bg"/>
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

@@ -10,7 +10,6 @@
         android:right="0.5dp"
         android:left="0.5dp">
         <shape>
-            <padding android:bottom="5dp" android:left="5dp" android:right="5dp" android:top="5dp"/>
             <solid android:color="#12121f"/>
         </shape>
     </item>
