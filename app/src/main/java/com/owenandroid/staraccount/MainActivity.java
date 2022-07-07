@@ -2,22 +2,38 @@ package com.owenandroid.staraccount;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ListView;
 
+import com.owenandroid.staraccount.activitys.ChartActivity;
 import com.owenandroid.staraccount.activitys.TakeAccountActivity;
+import com.owenandroid.staraccount.adapters.AccoutAdapter;
+import com.owenandroid.staraccount.beans.Account;
+
+import org.litepal.crud.DataSupport;
+import org.litepal.tablemanager.Connector;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
+    private ListView accoutListView;
+    private List<Account> dataList;
+    private AccoutAdapter adapter;
+    private View bgLine;
+    private static final String TAG = "MainActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +57,31 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        initLitePal();
+        initData();
+        initView();
+
+    }
+
+    private void initData() {
+        dataList = new ArrayList<>();
+        dataList = DataSupport.findAll(Account.class);
+        Collections.sort(dataList);
+    }
+
+    private void initView() {
+        accoutListView = (ListView) findViewById(R.id.accountlist);
+        bgLine = findViewById(R.id.backgroundline);
+        if (dataList.size() == 0){
+            bgLine.setVisibility(View.GONE);
+        }
+        adapter = new AccoutAdapter(dataList,this);
+        accoutListView.setAdapter(adapter);
+    }
+
+    private void initLitePal() {
+        Connector.getDatabase();
     }
 
     @Override
@@ -69,6 +110,7 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            startActivity(new Intent(MainActivity.this, ChartActivity.class));
             return true;
         }
 
@@ -98,5 +140,13 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d(TAG, "onResume: ");
+        initData();
+        adapter.notifyDataSetChanged();
     }
 }

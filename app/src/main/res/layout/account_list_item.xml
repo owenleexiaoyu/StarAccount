@@ -3,9 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="@color/colorWhite"
-    android:gravity="center_horizontal">
+    android:background="#00ffffff"
+    android:gravity="center_horizontal"
+    >
     <TextView
+        android:id="@+id/item_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/item_time_tv_bg"
@@ -15,20 +17,13 @@
         android:paddingBottom="3dp"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
-        />
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="70dp">
-    <View
-        android:layout_width="0.8dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:background="#ddd" />
-
+        android:layout_marginTop="6dp"/>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#00ffffff">
+        android:background="#00ffffff"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp">
         <FrameLayout
             android:id="@+id/account_item_frame"
             android:layout_width="wrap_content"
@@ -36,14 +31,15 @@
             android:layout_centerInParent="true">
 
             <com.owenandroid.staraccount.widgets.CircleImageView
-                android:id="@+id/ed_type_bgcolor"
+
+                android:id="@+id/item_icon_bg"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_gravity="center"
                 android:src="@color/colorCommon" />
 
             <ImageView
-                android:id="@+id/ed_type_icon"
+                android:id="@+id/item_icon"
                 android:layout_width="18dp"
                 android:layout_height="18dp"
                 android:layout_gravity="center"
@@ -60,6 +56,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/item_in_name_money"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="一般 34.0"
@@ -67,6 +64,7 @@
                 android:textColor="#000"/>
 
             <TextView
+                android:id="@+id/item_in_note"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:maxLines="1"
@@ -84,6 +82,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/item_out_name_money"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="一般 34.0"
@@ -91,6 +90,7 @@
                 android:textColor="#000"/>
 
             <TextView
+                android:id="@+id/item_out_note"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:maxLines="1"
@@ -99,5 +99,4 @@
                 android:textColor="#ccf"/>
         </LinearLayout>
     </RelativeLayout>
-    </FrameLayout>
 </LinearLayout>

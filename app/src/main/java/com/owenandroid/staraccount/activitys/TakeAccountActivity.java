@@ -4,8 +4,8 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,14 +22,15 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.owenandroid.staraccount.R;
+import com.owenandroid.staraccount.beans.Account;
 import com.owenandroid.staraccount.datas.TypeData;
 import com.owenandroid.staraccount.widgets.CircleImageView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -52,23 +53,16 @@ public class TakeAccountActivity extends Activity implements View.OnClickListene
     private LinearLayout topbar;
     private ImageView typeicon;
     private CircleImageView typecolor;
-    private TextView typename,tvNote;
+    private TextView typename, tvNote;
     private LinearLayout writenote;
     private Button btn_choose_date;
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    private GoogleApiClient client;
+    private int nameIndex = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.takeaccountlayout);
         initView();
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
     private void initView() {
@@ -113,6 +107,7 @@ public class TakeAccountActivity extends Activity implements View.OnClickListene
                 typeicon.setImageResource(TypeData.in_iconId[position]);
                 typecolor.setImageResource(TypeData.in_colorId[position]);
                 typename.setText(TypeData.in_typename[position]);
+                nameIndex = position;
             }
         });
         outGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -122,6 +117,7 @@ public class TakeAccountActivity extends Activity implements View.OnClickListene
                 typeicon.setImageResource(TypeData.out_iconId[position]);
                 typecolor.setImageResource(TypeData.out_colorId[position]);
                 typename.setText(TypeData.out_typename[position]);
+                nameIndex = position;
             }
         });
         viewList.add(inView);
@@ -230,8 +226,17 @@ public class TakeAccountActivity extends Activity implements View.OnClickListene
                 if (money == null || "".equals(money))
                     Toast.makeText(TakeAccountActivity.this, "请输入金额", Toast.LENGTH_SHORT).show();
                 else {
-                    Toast.makeText(TakeAccountActivity.this, radioIn.isChecked() ? "收入>" + typename.getText().toString() + ":￥" + tvMoney.getText().toString() :
-                            "支出>" + typename.getText().toString() + ":￥" + tvMoney.getText().toString(), Toast.LENGTH_SHORT).show();
+                    Account newAccout = new Account();
+                    newAccout.setType(radioIn.isChecked() ? Account.ACCOUNT_TYPE_IN : Account.ACCOUNT_TYPE_OUT);
+                    newAccout.setNameIndex(nameIndex);
+                    newAccout.setMoney(Double.valueOf(tvMoney.getText().toString()));
+                    newAccout.setDate("今天".equals(btn_choose_date.getText().toString()) ?
+                            new SimpleDateFormat("yyyy/MM/dd").format(new Date()) :
+                            btn_choose_date.getText().toString());
+                    newAccout.setNote("无备注".equals(tvNote.getText().toString()) ?
+                            "" : tvNote.getText().toString());
+                    newAccout.save();
+                    finish();
                 }
                 break;
             case R.id.writenote:
@@ -255,9 +260,9 @@ public class TakeAccountActivity extends Activity implements View.OnClickListene
                     @Override
                     public void onClick(View v) {
                         String notes = note.getText().toString();
-                        if(notes == null || "".equals(notes)){
-                            Toast.makeText(TakeAccountActivity.this,"你还没写备注哦",Toast.LENGTH_SHORT).show();
-                        }else {
+                        if (notes == null || "".equals(notes)) {
+                            Toast.makeText(TakeAccountActivity.this, "你还没写备注哦", Toast.LENGTH_SHORT).show();
+                        } else {
                             tvNote.setText(notes);
                             dialog.dismiss();
                         }
@@ -265,13 +270,23 @@ public class TakeAccountActivity extends Activity implements View.OnClickListene
                 });
                 break;
             case R.id.choose_date:
+                //获取当天
                 Calendar calendar = Calendar.getInstance();
-                DatePickerDialog datePickerDialog = new DatePickerDialog(TakeAccountActivity.this, new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-
-                    }
-                },2016,11,9);
+                DatePickerDialog datePickerDialog = new DatePickerDialog
+                        (TakeAccountActivity.this, new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                                String strMonth = "" + (month + 1);
+                                String strDay = "" + dayOfMonth;
+                                if (month + 1 < 10) {
+                                    strMonth = "0" + strMonth;
+                                }
+                                if (dayOfMonth < 10) {
+                                    strDay = "0" + strDay;
+                                }
+                                btn_choose_date.setText("" + year + "/" + strMonth + "/" + strDay);
+                            }
+                        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
                 datePickerDialog.show();
                 break;
         }
